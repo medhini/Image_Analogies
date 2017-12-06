@@ -1,1 +1,1 @@
-#Image Analogies
+Image Analogies
