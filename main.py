@@ -1,7 +1,7 @@
 import tensorflow as tf
 from scipy import misc
 import matplotlib.pyplot as plt
-from gaussian_pyramid import compute_gaussian_pyramid
+from utils import compute_gaussian_pyramid
 
 IN_PATH_A = "images/blurA1.jpg"
 IN_PATH_A_P = "images/rose-src.jpg" 
@@ -20,9 +20,19 @@ def main():
 	im_b = read_image(IN_PATH_B)
 
 	image_pyramid_a = compute_gaussian_pyramid(im_a)
-	image_pyramid_a_p = compute_gaussian_pyramid(im_a_p)
-	image_pyramid_b = compute_gaussian_pyramid(im_b)
+	# image_pyramid_a_p = compute_gaussian_pyramid(im_a_p)
+	# image_pyramid_b = compute_gaussian_pyramid(im_b)
 
+
+	"""Computing Luminances"""
+
+	lum_a, lum_a_pyramid, lum_b	
+	"""Remap luminance for color artistic images"""
+	im_a, image_pyramid_a = remap_luminance(lum_a, lum_a_pyramid, lum_b)	
+
+	""""""
+
+	
 if __name__ == '__main__':
    main()
 
