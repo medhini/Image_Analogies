@@ -25,5 +25,15 @@ def main():
 	features = compute_features(image_pyramid_a)
 	print(features)
 
+
+	"""Computing Luminances"""
+
+	lum_a, lum_a_pyramid, lum_b
+	"""Remap luminance for color artistic images"""
+	im_a, image_pyramid_a = remap_luminance(lum_a, lum_a_pyramid, lum_b)
+
+	""""""
+
+
 if __name__ == '__main__':
    main()

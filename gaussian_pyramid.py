@@ -8,5 +8,3 @@ def compute_gaussian_pyramid(img, level = 5):
 	image_pyramid.reverse()
 
 	return image_pyramid
-
-
