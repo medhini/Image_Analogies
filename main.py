@@ -1,4 +1,3 @@
-import tensorflow as tf
 from scipy import misc
 import matplotlib.pyplot as plt
 from utils import compute_gaussian_pyramid
@@ -32,7 +31,7 @@ def main():
 
 	""""""
 
-	
+
 if __name__ == '__main__':
    main()
 
