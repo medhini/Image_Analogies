@@ -1,14 +1,15 @@
-def best_coherence_match(As, (A_h, A_w), BBp_feat, s, im, px, Bp_w, c):
-    assert(len(s) >= 1)
+from utils import px2ix, Ap_px2ix
 
-    row, col = px
+def best_coherence_match(a_prime, (A_h, A_w), BBp_feat, s, im, pixel, Bp_w, c):
+    
+    row, col = pixel
 
     # construct iterables
     rs = []
     ims = []
     prs = []
-    rows = np.arange(np.max([0, row - c.pad_lg]), row + 1, dtype=int)
-    cols = np.arange(np.max([0, col - c.pad_lg]), np.min([Bp_w, col + c.pad_lg + 1]), dtype=int)
+    rows = np.arange(0, row + 1, dtype=int)
+    cols = np.arange(0, col + 1, dtype=int)
 
     for r_coord in product(rows, cols):
         # discard anything after current pixel
@@ -27,17 +28,3 @@ def best_coherence_match(As, (A_h, A_w), BBp_feat, s, im, px, Bp_w, c):
                 ims.append(img_nums)
                 prs.append(Ap_px2ix(pr, img_nums, A_h, A_w))
 
-def best_coherence_match(features, s, A_p, ):
-
-	row, col = px
-
-	rows = np.arange(0, row+1, dtype = int)
-	cols = np.arange(0, col+1, dtype=int)
-
-	for feature_level in features:
-
-		for m in range(len(feature_level)):
-			for n in range(len(feature_level[m])):
-				r = feature_level[m][n]
-				(feature_level[s[[m][n]] + (q - r)] - feature_level[q]) 
-		"""F(s(r)+(q − r)) − F(q)"""
