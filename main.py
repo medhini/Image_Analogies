@@ -52,8 +52,9 @@ def main():
 				px = np.array([row, col])
 
 				# do something about B and Bp feature
-				small_padded = np.pad(pyramid_b_p[level-1], (3//2), 'reflect') 
-				big_padded = np.pad(pyramid_b[level], (5//2), 'reflect')
+				feature_b_p = compute_features(pyramid_b_p)
+				small_padded = np.pad(feature_b_p[level-1], (3//2), 'reflect') 
+				big_padded = np.pad(feature_b_p[level], (5//2), 'reflect')
 				BBp_feature = np.hstack([features_b[level][px2idx(px, imw), :],
                                       extract_pixel_feature(small_padded, big_padded, px)])
 

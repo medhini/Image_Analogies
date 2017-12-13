@@ -45,16 +45,11 @@ def compute_features(pyramid):
 def extract_pixel_feature(im_sm_padded, im_lg_padded, (row, col)):
     small_window = 3
     big_window = 5
-    small_pad = small_window//2
-    big_pad = big_window//2
-    half = (big_window * big_window)//2
-
-    # first extract full feature vector
+    
     # since the images are padded, we need to add the padding to our indexing
-    px_feat = np.hstack([im_sm_padded[row//2 : row//2 + 2 * small_pad + 1, \
-                                      col//2 : col//2 + 2 * small_pad + 1].flatten(),
-                         im_lg_padded[row : row + 2 * big_pad + 1,
-                                      col : col + 2 * big_pad + 1].flatten()])
+    px_feat = np.hstack([im_sm_padded[row//2 : row//2 + small_window, \
+                                      col//2 : col//2 + small_window].flatten(),
+                         im_lg_padded[row : row + big_window,
+                                      col : col + big_window].flatten()])
 
-    # only keep half pixels from second level
-    return px_feat[:34]
+    return px_feat
