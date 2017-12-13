@@ -27,12 +27,14 @@ def main():
 	pyramid_a = compute_gaussian_pyramid(im_a)
 	pyramid_a_p = compute_gaussian_pyramid(im_a_p)
 	pyramid_b = compute_gaussian_pyramid(im_b)
+	pyramid_b_p = pyramid_b
+
 
 	# Compute features of B
 	features_b = concat_features(pyramid_b)
 
 	# Build structure for ANN
-	flann, flann_params, s, s_size = ann_index(pyramid_a, pyramid_a_p)
+	flann, flann_params, As, As_size = ann_index(pyramid_a, pyramid_a_p)
 
 	##################################################################
 	# Algorithms
@@ -43,23 +45,40 @@ def main():
 		imh, imw = pyramid_b[level].shape[:2]
 		im_out = np.nan * np.ones((imh, imw, 3))
 
+		s = []
+
 		for row in range(imh):
 			for col in range(imw):
 				px = np.array([row, col])
 
 				# do something about B and Bp feature
-				small_padded = np.pad(pyramid_b[level-1], (3//2), 'reflect') 
+				small_padded = np.pad(pyramid_b_p[level-1], (3//2), 'reflect') 
 				big_padded = np.pad(pyramid_b[level], (5//2), 'reflect')
 				BBp_feature = np.hstack([features_b[level][px2idx(px, imw), :],
                                       extract_pixel_feature(small_padded, big_padded, px)])
 
-				assert(BBp_feature.shape == (s_size[level][1],))
+				assert(BBp_feature.shape == (As_size[level][1],))
 				# Find Approx Nearest Neighbor
 				p_app_idx = best_approximate_match(flann[level], flann_params[level], BBp_feature)
 
 				Ap_h, Ap_w = im_a_p.shape[:2]
 				p_app = idx2px(p_app_idx, Ap_w)
 
+				p_coh
+
+				AAp_feature_app = As[level][p_app]
+				AAp_feature_coh = As[level][]
+				d_app = norm(AAp_feature_app - BBp_feature)**2
+				d_coh = norm(AAp_feature_coh - BBp_feature)**2
+
+				if d_coh < d_app * (1 + (2**(level-5)*1)
+					p = p_coh
+				else:
+					p = p_app
+
+				pyramid_b_p[level][row, col] = pyramid_a_p[level][tuple(p)]
+
+				s.append(p)
 
 
 	"""Computing Luminances"""
