@@ -32,3 +32,19 @@ def remap_luminance(im_a, im_a_p, im_b):
         img_a_p_remap.append((std_dev_b/std_dev_a) * (im - mean_a) + mean_b)
 
     return img_a_remap, img_a_p_remap
+
+def px2idx(px, w):
+    rows, cols = px[0], px[1]
+    return (rows * w + cols).astype(int)
+
+def idx2px(idx, w):
+    cols = idx % w
+    rows = (idx-cols) // w
+    return np.array([rows, cols])
+    
+def Ap_ix2px(ixs, h, w):
+    pxs = ix2px(ixs, w)
+    rows, cols = pxs[0], pxs[1]
+    img_nums = (np.floor(rows/h)).astype(int)
+    img_ixs = ixs - img_nums * h * w
+    return ix2px(img_ixs, w), img_nums

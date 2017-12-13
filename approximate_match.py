@@ -28,13 +28,3 @@ def ann_index(A_pyramid, Ap_pyramid, level = 6):
 def best_approximate_match(flann, params, BBp_feature):
     result, dists = flann.nn_index(BBp_feature, 1, checks=params['checks'])
     return result[0]
-
-
-def px2idx(px, w):
-    rows, cols = px[0], px[1]
-    return (rows * w + cols).astype(int)
-
-def idx2px(idx, w):
-    cols = idx % w
-    rows = (idx-cols) // w
-    return np.array([rows, cols])
