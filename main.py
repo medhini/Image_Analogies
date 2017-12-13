@@ -63,7 +63,7 @@ def main():
 				feature_b_p = compute_features(pyramid_b_p)
 				small_padded = np.pad(feature_b_p[level-1], (3//2), 'reflect') 
 				big_padded = np.pad(feature_b_p[level], (5//2), 'reflect')
-				BBp_feature = np.hstack([features_b[level][px2idx(px, imw), :],
+				BBp_feature = np.hstack([features_b[level][to_1d(px, imw), :],
 									  extract_pixel_feature(small_padded, big_padded, px)])
 
 				assert(BBp_feature.shape == (As_size[level][1],))
@@ -72,7 +72,7 @@ def main():
 
 
 				Ap_imh, Ap_imw = im_a_p.shape[:2]
-				p_app, i_app = Ap_ix2px(p_app_ix, Ap_imh, Ap_imw)
+				p_app, i_app = Ap_to_2d(p_app_ix, Ap_imh, Ap_imw)
 
 				#Coherence match
 

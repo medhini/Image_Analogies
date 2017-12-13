@@ -1,4 +1,4 @@
-from utils import px2idx, Ap_px2ix
+from utils import to_1d, Ap_to_1d
 
 def best_coherence_match(a_prime, (A_h, A_w), BBp_feat, s, im, pixel, Bp_w, n_lg):
     
@@ -27,7 +27,7 @@ def best_coherence_match(a_prime, (A_h, A_w), BBp_feat, s, im, pixel, Bp_w, n_lg
             if 0 <= pr[0] < A_h and 0 <= pr[1] < A_w:
                 rs.append(np.array(r_coord))
                 ims.append(img_nums)
-                prs.append(Ap_px2ix(pr, img_nums, A_h, A_w))
+                prs.append(Ap_to_1d(pr, img_nums, A_h, A_w))
 
 
     if not rs:
