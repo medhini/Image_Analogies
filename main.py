@@ -31,12 +31,19 @@ def main():
 	if np.max(im_a_p) > 1.0:
 		im_a_p = im_a_p/255.
 
+	"""Computing Luminances"""
+
+	lum_a, lum_a_pyramid, lum_b = rgb_to_yiq()
+	"""Remap luminance for color artistic images"""
+	im_a, im_a_p = remap_luminance(im_a, im_a_p, im_b)
+	im_a, pyramid_a_p = remap_luminance(lum_a, lum_a_pyramid, lum_b)
+
 	pyramid_a = compute_gaussian_pyramid(im_a)
 	pyramid_a_p = compute_gaussian_pyramid(im_a_p)
 	pyramid_b = compute_gaussian_pyramid(im_b)
 	pyramid_b_p = pyramid_b
 
-
+	
 	# Compute features of B
 	features_b = concat_features(pyramid_b)
 
@@ -101,18 +108,12 @@ def main():
 							i = i_app
 
 
-				pyramid_b_p[level][row, col] = pyramid_a_p[i][level][tuple(p)]
+				# pyramid_b_p[level][row, col] = pyramid_a_p[i][level][tuple(p)]
 
-				s.append(p)
+				# s.append(p)
 
 
-	"""Computing Luminances"""
-
-	# lum_a, lum_a_pyramid, lum_b
-	# """Remap luminance for color artistic images"""
-	# im_a, im_a_p = remap_luminance(im_a, im_a_p, im_b)
-	# im_a, image_pyramid_a = remap_luminance(lum_a, lum_a_pyramid, lum_b)
-
+	
 	""""""
 
 
