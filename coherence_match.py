@@ -1,4 +1,4 @@
-from utils import px2ix, Ap_px2ix
+from utils import px2idx, Ap_px2ix
 
 def best_coherence_match(a_prime, (A_h, A_w), BBp_feat, s, im, pixel, Bp_w, n_lg):
     
@@ -10,7 +10,7 @@ def best_coherence_match(a_prime, (A_h, A_w), BBp_feat, s, im, pixel, Bp_w, n_lg
     ims = []
     prs = []
     rows = np.arange(np.max([0, row - np.floor(n_lg/2.)]), row + 1, dtype=int)
-    cols = np.arange(np.max([0, col - np.floor(n_lg/2.)]), np.min([Bp_w, col + c.pad_lg + 1]), dtype=int)
+    cols = np.arange(np.max([0, col - np.floor(n_lg/2.)]), np.min([Bp_w, col + np.floor(n_lg/2.) + 1]), dtype=int)
 
     for r_coord in product(rows, cols):
         # discard anything after current pixel

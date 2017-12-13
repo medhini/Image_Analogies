@@ -1,5 +1,6 @@
 from skimage.transform import pyramid_gaussian
 import matplotlib.pyplot as plt
+import numpy as np
 
 def compute_gaussian_pyramid(img, level = 5):
 	"""Computes a gaussian pyramid for an input image"""
@@ -18,8 +19,8 @@ def remap_luminance(im_a, im_a_p, im_b):
     lum_img_a_p = YIQ_tmp[0]
     YIQ_tmp = colorsys.rgb_to_yiq(im_b[:,:,0],im_b[:,:,1],im_b[:,:,2])
     lum_img_b = YIQ_tmp[0]
-
-	mean_a = np.mean(lum_img_a)
+    
+    mean_a = np.mean(lum_img_a)
     mean_b = np.mean(lum_img_b)
     std_dev_a = np.std(lum_img_a)
     std_dev_b = np.std(lum_img_b)
@@ -41,10 +42,14 @@ def idx2px(idx, w):
     cols = idx % w
     rows = (idx-cols) // w
     return np.array([rows, cols])
-    
+
 def Ap_ix2px(ixs, h, w):
-    pxs = ix2px(ixs, w)
+    pxs = idx2px(ixs, w)
     rows, cols = pxs[0], pxs[1]
     img_nums = (np.floor(rows/h)).astype(int)
     img_ixs = ixs - img_nums * h * w
-    return ix2px(img_ixs, w), img_nums
+    return idx2px(img_ixs, w), img_nums
+
+def Ap_px2ix(pxs, img_nums, h, w):
+    rows, cols = pxs[0], pxs[1]
+    return (((h * img_nums) + rows) * w + cols).astype(int)
