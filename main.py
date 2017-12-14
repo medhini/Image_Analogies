@@ -7,6 +7,7 @@ from features import compute_features, concat_features, extract_pixel_feature
 from approximate_match import ann_index, best_approximate_match
 from coherence_match import best_coherence_match
 from utils import *
+from numpy.linalg import norm
 
 IN_PATH_A = "images/blurA1.jpg"
 IN_PATH_A_P = "images/rose-src.jpg"
@@ -78,15 +79,15 @@ def main():
 				# Find Approx Nearest Neighbor
 				p_app_ix = best_approximate_match(flann[level], flann_params[level], BBp_feature)
 
-				Ap_imh, Ap_imw = im_a_p.shape[:2]
-				p_app = to_2d(p_app_ix, imw)
+				Ap_imh, Ap_imw = pyramid_a_p[level].shape[:2]
+				p_app = to_2d(p_app_ix, Ap_imw)
 
 				if(len(s)<1):
 					p = p_app
 
 				else:
 					#Coherence match   
-					p_coh, r_star = best_coherence_match(image_pyramid_a[level], (Ap_imh, Ap_imw), BBp_feature, s, px, imw, n_lg)
+					p_coh = best_coherence_match(As[level], (Ap_imh, Ap_imw), BBp_feature, s, px, imw, n_lg)
 
 					if np.allclose(p_coh, np.array([-1, -1])):
 						p = p_app
