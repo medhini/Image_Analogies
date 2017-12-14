@@ -74,6 +74,7 @@ def main():
 									  extract_pixel_feature(small_padded, big_padded, px)])
 
 				assert(BBp_feature.shape == (As_size[level][1],))
+				
 				# Find Approx Nearest Neighbor
 				p_app_ix = best_approximate_match(flann[level], flann_params[level], BBp_feature)
 
