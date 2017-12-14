@@ -11,8 +11,8 @@ def best_coherence_match(As, (A_h, A_w), BBp_feat, s, pixel, Bp_w, n_lg):
     # construct iterables
     prs = []
     rs = []
-    rows = np.arange(np.max([0, row - np.floor(n_lg/2.)]), row + 1, dtype=int)
-    cols = np.arange(np.max([0, col - np.floor(n_lg/2.)]), np.min([Bp_w, col + np.floor(n_lg/2.) + 1]), dtype=int)
+    rows = np.arange(0, row+1, dtype=int)
+    cols = np.arange(0, col+1, dtype=int)
 
     for r_coord in product(rows, cols):
         # discard anything after current pixel
