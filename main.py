@@ -82,6 +82,7 @@ def main():
 				Ap_imh, Ap_imw = pyramid_a_p[level].shape[:2]
 				p_app = to_2d(p_app_ix, Ap_imw)
 
+
 				if(len(s)<1):
 					p = p_app
 
@@ -103,6 +104,9 @@ def main():
 						else:
 							p = p_app
 
+				# print len(tuple(p))
+					# print p_coh
+				# print pyramid_a_p[level][tuple(p)].shape, pyramid_b_p[level][row, col].shape
 				s.append(p)
 				pyramid_b_p[level][row, col] = pyramid_a_p[level][tuple(p)]
 

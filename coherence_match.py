@@ -9,8 +9,8 @@ def best_coherence_match(As, (A_h, A_w), BBp_feat, s, pixel, Bp_w, n_lg):
     row, col = pixel
 
     # construct iterables
-    rs = []
     prs = []
+    rs = []
     rows = np.arange(np.max([0, row - np.floor(n_lg/2.)]), row + 1, dtype=int)
     cols = np.arange(np.max([0, col - np.floor(n_lg/2.)]), np.min([Bp_w, col + np.floor(n_lg/2.) + 1]), dtype=int)
 
@@ -21,23 +21,23 @@ def best_coherence_match(As, (A_h, A_w), BBp_feat, s, pixel, Bp_w, n_lg):
 
             # pr is an index in a given image Ap
             pr = s[to_1d(r_coord, Bp_w)] + pixel - r_coord
-
             # i is a list of image nums for each pixel in Bp
             #img_nums = im[to_1d(r_coord, Bp_w)]
 
             # discard anything outside the bounds of A/Ap lg
-    #         if 0 <= pr[0] < A_h and 0 <= pr[1] < A_w:
-    #             rs.append(np.array(r_coord))
-    #             prs.append(pr)
+            if 0 <= pr[0] < A_h and 0 <= pr[1] < A_w:
+            	rs.append(np.array(r_coord))
+                prs.append(to_1d(pr, A_w))
 
 
-    # if not rs:
-    #     # no good coherence match
-    #     return (-1, -1), 0, (0, 0)
+    if not rs:
+        # no good coherence match
+        return (-1, -1), 0, (0, 0)
 
-    # rix = np.argmin(norm(As[np.array(prs)] - BBp_feat, ord=2, axis=1))
-    # r_star = rs[rix]
+    rix = np.argmin(norm(As[np.array(prs)] - BBp_feat, ord=2, axis=1))
+    # print rix, rs.shape
+    r_star = rs[rix]
     # #i_star = ims[rix]
     # # s[r_star] + (q - r-star)
-    # return s[to_1d(r_star, Bp_w)] + px - r_star, r_star
-    return pr
+    return s[to_1d(r_star, Bp_w)] + pixel - r_star
+    
