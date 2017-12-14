@@ -43,8 +43,8 @@ def main():
 	pyramid_a_p = compute_gaussian_pyramid(im_a_p, max_level)
 	pyramid_b = compute_gaussian_pyramid(im_b, max_level)
 	pyramid_b_p = pyramid_b
-	im_b_yiq = colorsys.rgb_to_yiq(im_b[:,:,0],im_b[:,:,1],im_b[:,:,2])
-	pyramid_color = compute_gaussian_pyramid(im_b_yiq, max_level)
+	# im_b_yiq = rgb2yiq(im_b)
+	# pyramid_color = compute_gaussian_pyramid(im_b_yiq, max_level)
 
 	
 	# Compute features of B
@@ -82,12 +82,11 @@ def main():
 				Ap_imh, Ap_imw = pyramid_a_p[level].shape[:2]
 				p_app = to_2d(p_app_ix, Ap_imw)
 
-
 				if(len(s)<1):
 					p = p_app
 
 				else:
-					#Coherence match   
+					#Coherence match
 					p_coh = best_coherence_match(As[level], (Ap_imh, Ap_imw), BBp_feature, s, px, imw, n_lg)
 
 					if np.allclose(p_coh, np.array([-1, -1])):
@@ -104,19 +103,17 @@ def main():
 						else:
 							p = p_app
 
-				# print len(tuple(p))
-					# print p_coh
-				# print pyramid_a_p[level][tuple(p)].shape, pyramid_b_p[level][row, col].shape
 				s.append(p)
 				pyramid_b_p[level][row, col] = pyramid_a_p[level][tuple(p)]
 
 		
-		# Save color output images	
-		im_out_yiq = np.dstack([pyramid_b_p[level], pyramid_color[level][:, :, 1:]])
-		color_im_out = colorsys.yiq_to_rgb(im_out_yiq[:,:,0], im_out_yiq[:,:,1], im_out_yiq[:,:,2])
+		# Save color output images
+		# pyramid_b_p_yiq = rgb2yiq(pyramid_b_p[level])
+		# im_out_yiq = np.dstack([pyramid_b_p_yiq[:, :, 0], pyramid_color[level][:, :, 1:]])
+		color_im_out = pyramid_b_p[level]
 		color_im_out = np.clip(color_im_out, 0, 1)
 
-		plt.imsave('output/level_%d_color.jpg' % level, color_im_out)
+		misc.imsave('output/level_%d_color.jpg' % level, color_im_out)
 
 
 
