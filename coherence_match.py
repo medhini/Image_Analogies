@@ -32,7 +32,7 @@ def best_coherence_match(As, (A_h, A_w), BBp_feat, s, pixel, Bp_w, n_lg):
 
     if not rs:
         # no good coherence match
-        return (-1, -1), 0, (0, 0)
+        return [-1, -1]
 
     rix = np.argmin(norm(As[np.array(prs)] - BBp_feat, ord=2, axis=1))
     # print rix, rs.shape

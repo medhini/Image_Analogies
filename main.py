@@ -15,7 +15,7 @@ IN_PATH_B = "images/blurB1.jpg"
 OUT_PATH_B_P = "images/out.jpg"
 LUM_REMAP = False
 
-max_level = 5  # set the max level of pyramid
+max_level = 3  # set the max level of pyramid
 AB_weight = 1  # relative weighting of A and B relative to Ap and Bp
 k    = 0.5     # 0.5 <= k <= 5 for texture synthesis
 n_sm = 3       # coarse scale neighborhood size
@@ -51,7 +51,7 @@ def main():
 	features_b = concat_features(pyramid_b)
 
 	# Build structure for ANN
-	flann, flann_params, As, As_size = ann_index(pyramid_a, pyramid_a_p)
+	flann, flann_params, As, As_size = ann_index(pyramid_a, pyramid_a_p, max_level + 1)
 
 	##################################################################
 	# Algorithms

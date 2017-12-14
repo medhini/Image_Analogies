@@ -3,7 +3,7 @@ import pyflann as pf
 from features import concat_features
 
 
-def ann_index(A_pyramid, Ap_pyramid, level = 6):
+def ann_index(A_pyramid, Ap_pyramid, level):
     A_feature = concat_features(A_pyramid)
     Ap_feature = concat_features(Ap_pyramid)
 
